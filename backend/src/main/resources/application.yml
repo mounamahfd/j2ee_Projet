@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: SecurityRoleManagement
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/role_management?useSSL=false&serverTimezone=UTC
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        opaque-token:
+          introspection-uri: https://www.googleapis.com/oauth2/v3/userinfo
+          clientId: "510830511607-d5jjtt9p85u0gnoi8u5dqsp4hthcco6a.apps.googleusercontent.com"
+          clientSecret: "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"
+
+server:
+  port: 8080
+
+
+bezkoder:
+  app:
+    jwtSecret: "======================BezKoder=Spring==========================="
+    jwtExpirationMs: 86400000
+
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
+    com:
+      sergio:
+        oauth2:
+          backend: DEBUG

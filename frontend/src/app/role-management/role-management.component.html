@@ -1,0 +1,61 @@
+<div class="topbar">
+    <h2>Tableau de Bord</h2>
+    <div>
+      <a routerLink="/admin">Gestion des Utilisateurs</a>
+      <a routerLink="/roles">Gestion des Rôles et Fonctionnalités</a>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h2 class="mb-3">Gestion des Rôles</h2>
+
+    <button class="btn btn-success mb-3" (click)="openAddRoleModal()">Ajouter un Rôle</button>
+
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom du Rôle</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roles">
+          <td>{{ role.name }}</td>
+          <td>{{ role.description }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger me-1" (click)="deleteRole(role.id)">Supprimer</button>
+            <button class="btn btn-sm btn-info" (click)="openFunctionalityModal(role)">Assigner Fonctionnalités</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal d'ajout de rôle -->
+    <div *ngIf="showAddRoleModal" class="modal">
+      <div class="modal-content">
+        <h3>Ajouter un Nouveau Rôle</h3>
+        <label>Nom :</label>
+        <input [(ngModel)]="newRole.name" class="form-control" placeholder="Nom du rôle">
+        <label>Description :</label>
+        <input [(ngModel)]="newRole.description" class="form-control" placeholder="Description du rôle">
+        <button class="btn btn-primary mt-3" (click)="addRole()">Sauvegarder</button>
+        <button class="btn btn-secondary mt-3" (click)="showAddRoleModal = false">Annuler</button>
+      </div>
+    </div>
+
+    <!-- Modal d'assignation des fonctionnalités -->
+    <div *ngIf="showFunctionalityModal" class="modal">
+      <div class="modal-content">
+        <h3>Assigner Fonctionnalités à {{ selectedRole?.name }}</h3>
+        <div *ngFor="let functionality of functionalities">
+          <input type="checkbox" 
+                 [checked]="hasFunctionality(functionality)" 
+                 (change)="onFunctionalityChange($event, functionality)">
+          {{ functionality.name }}
+        </div>
+        <button (click)="assignFunctionalities()">Sauvegarder</button>
+        <button (click)="showFunctionalityModal = false">Annuler</button>
+      </div>
+    </div>
+</div>

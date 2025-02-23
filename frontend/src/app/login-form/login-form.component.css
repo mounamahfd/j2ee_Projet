@@ -1,0 +1,108 @@
+/* ✅ Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* 📌 Conteneur principal */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;  /* 🔽 Ajoute un espace pour descendre le formulaire */
+}
+
+/* 📌 Boîte du formulaire */
+.login-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+/* 🎯 Titre */
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+}
+
+/* 🎯 Champs de formulaire */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #444;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* 🎯 Bouton de connexion */
+.btn-login {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+/* ❌ Message d'erreur */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 🔗 Bouton Google */
+.google-btn {
+    display: block;
+    background-color: #dd4b39;
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.google-btn:hover {
+    background-color: #c23321;
+}
+
+/* ✅ Responsiveness */
+@media (max-width: 480px) {
+    .login-box {
+        width: 90%;
+    }
+
+    .login-container {
+        margin-top: 30px;  /* 🔽 Ajuste l'espacement sur mobile */
+    }
+}

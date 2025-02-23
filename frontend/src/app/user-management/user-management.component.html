@@ -1,0 +1,85 @@
+<!-- TOPBAR NAVIGATION -->
+<div class="topbar">
+  <h2>Tableau de Bord</h2>
+  <div>
+    <a routerLink="/admin">Gestion des Utilisateurs</a>
+    <a routerLink="/roles">Gestion des Rôles et Fonctionnalités</a>
+  </div>
+</div>
+
+<!-- CONTAINER PRINCIPAL -->
+<div class="container mt-4">
+  <h2 class="mb-3">Gestion des Utilisateurs</h2>
+
+  <div *ngIf="isLoading" class="text-center">
+    <p>Chargement des utilisateurs...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom d'utilisateur</th>
+          <th>Email</th>
+          <th>Rôles</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span *ngFor="let role of user.roles" class="badge bg-primary mx-1">
+              {{ role.name }}
+            </span>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="{ 'bg-success': user.active, 'bg-danger': !user.active }">
+              {{ user.active ? "Actif" : "Inactif" }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm" 
+                    [ngClass]="{ 'btn-success': !user.active, 'btn-danger': user.active }" 
+                    (click)="toggleUserStatus(user)">
+              <i class="fa" [ngClass]="{ 'fa-check-circle': !user.active, 'fa-times-circle': user.active }"></i>
+              {{ user.active ? "Désactiver" : "Activer" }}
+            </button>
+            <button class="btn btn-sm btn-info me-1" (click)="openRoleModal(user)">
+              Modifier Rôles
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MODAL DE MODIFICATION DES ROLES -->
+  <div *ngIf="showRoleModal && selectedUser" class="modal-overlay">
+    <div class="modal-content">
+      <h3 class="text-lg font-medium mb-4">
+        Modifier les rôles de {{ selectedUser?.username }}
+      </h3>
+      <div class="space-y-2">
+        <label *ngFor="let role of roles" class="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            [checked]="hasRole(selectedUser, role.id)"
+            (change)="onRoleChange($event, role)"
+          />
+          <span>{{ role.name }}</span>
+        </label>
+      </div>
+      <div class="mt-4 flex justify-end space-x-2">
+        <button (click)="showRoleModal = false" class="btn btn-secondary">
+          Annuler
+        </button>
+        <button (click)="updateUserRole()" class="btn btn-primary">
+          Sauvegarder
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
