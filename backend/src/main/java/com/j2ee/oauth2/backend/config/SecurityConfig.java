@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .exceptionHandling(customizer -> customizer.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/", "/api/auth/signin", "/public/**").permitAll()
+                        .requestMatchers("/", "/api/**", "/public/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(c -> c.opaqueToken(Customizer.withDefaults()))
